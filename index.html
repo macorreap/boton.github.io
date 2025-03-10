@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Mensaje a Google Chat</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        button {
+            background-color: red;
+            color: white;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        .footer {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .footer-text {
+            font-size: 12px;
+            color: gray;
+            font-family: Arial, sans-serif;
+        }
+        .footer img {
+            margin-top: 5px;
+            width: 50px; /* Ajusta el tamaño de la imagen */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="enviarMensaje()">Enviar Alerta</button>
+
+    <div class="footer">
+        <div class="footer-text">Desarrollado por Área de Evangelización</div>
+        <img src="https://www.odb.cl/images/magone/insignia.png" alt="Insignia">
+    </div>
+
+    <script>
+        function enviarMensaje() {
+            const webhookUrl = "TU_WEBHOOK_URL"; // Reemplaza con tu URL de Webhook
+            const mensaje = {
+                text: "🚨 ¡Alerta! Se ha pulsado el botón rojo. 📢\n\n📩 Notificando a:\n- Carolina Alfaro (rector@odb.cl)\n- Mario Correa (coordpastoral2@odb.cl)"
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(mensaje)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Mensaje enviado correctamente a Google Chat.");
+                } else {
+                    alert("Error al enviar el mensaje.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("No se pudo enviar el mensaje.");
+            });
+        }
+    </script>
+</body>
+</html>
